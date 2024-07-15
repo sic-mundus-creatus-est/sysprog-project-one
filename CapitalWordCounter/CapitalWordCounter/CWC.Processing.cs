@@ -47,7 +47,7 @@ namespace CapitalWordCounter
             }
 
             if (request.Url.AbsolutePath == "/")
-            {// 
+            {// returns the "homepage" as a response
                 byte[] buffer = Encoding.UTF8.GetBytes(_homepageFrontend);
                 response.ContentType = "text/html";
                 response.ContentLength64 = buffer.Length;
@@ -146,11 +146,11 @@ namespace CapitalWordCounter
             string[] files = Directory.GetFiles(root, fileName);
 
             if (files.Length > 0)
-            {// If the file is found in the root directory, return its path
+            {// if the file is found in the root directory, returns its path
                 return files[0];
             }
 
-            // Otherwise, do recursive search through all subdirectories of root
+            // otherwise, does recursive search through all subdirectories of root
             string[] subDirectories = Directory.GetDirectories(root);
             foreach (string subDirectory in subDirectories)
             {
@@ -164,7 +164,7 @@ namespace CapitalWordCounter
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    // Ignore unauthorized access exceptions and continue searching
+                    // ignores unauthorized access exceptions and continues searching
                 }
             }
 
@@ -209,7 +209,7 @@ namespace CapitalWordCounter
 
                             int localCount = 0;
 
-                            string[] words = paragraphToProcess.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] words = paragraphToProcess.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', ';', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
                             foreach (string word in words)
                             {
                                 if (word.Length > 5 && char.IsUpper(word[0]))
@@ -231,8 +231,8 @@ namespace CapitalWordCounter
                     }
                 }
             }
-            countdownEvent.Signal(); // signal the main thread of the request that all paragraphs are queued
-            countdownEvent.Wait(); // wait for all worker threads to finish processing
+            countdownEvent.Signal(); // signals the main thread of the request that all paragraphs are queued
+            countdownEvent.Wait(); // waits for all worker threads to finish
 
             return totalCount.ToString();
         }

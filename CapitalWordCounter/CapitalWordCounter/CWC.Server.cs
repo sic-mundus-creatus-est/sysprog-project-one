@@ -53,7 +53,7 @@ namespace CapitalWordCounter
             }
             Console.WriteLine($" # Listening on {prefixes[0]}\n");
 
-            _cache = new CWC_Cache(124);
+            _cache = new CWC_Cache(1024);
             _homepageFrontend = GenerateHomepage();
 
             _requestsHandled = 0;

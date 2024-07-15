@@ -28,6 +28,7 @@ namespace CapitalWordCounter
         private readonly Dictionary<string, LinkedListNode<CacheItem>> _cacheMap;
         private readonly LinkedList<CacheItem> _lruList;
         private readonly object _cacheLock = new object();
+    //=============================================================================
 
         //==================================================================
         // *** CWC CACHE CONSTRUCTOR *** //
